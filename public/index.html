@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>FEC OpenTable</title>
+  </head>
+  <body>
+    <div id="Overview"></div>
+    <div id="Reservations"></div>
+    <div id="Menu"></div>
+    <div id="Reviews"></div>
+    <script src="http://localhost:3001/bundle.js"></script>
+    <script src="http://localhost:3002/bundle.js"></script>
+    <script src="http://localhost:3003/bundle.js"></script>
+    <script src="http://localhost:3004/bundle.js"></script>
+    <script>
+      ReactDOM.render(
+        React.createElement(Overview),
+        document.getElementById('Overview')
+      );
+      ReactDOM.render(
+        React.createElement(Reservations),
+        document.getElementById('Reservations')
+      );
+      ReactDOM.render(
+        React.createElement(Menu),
+        document.getElementById('Menu')
+      );
+      ReactDOM.render(
+        React.createElement(Reviews),
+        document.getElementById('Reviews')
+      );
+    </script>
+  </body>
+</html>
