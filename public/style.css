@@ -31,3 +31,21 @@
 #body {
   font-family: 'BrandonText-Regular';
 }
+
+#overview{
+  display: inline-flex;
+}
+
+#menu{
+  display: inline-flex;
+}
+
+#reviews{
+  display: flex;
+  justify-content: center
+}
+
+#left{
+  display: flex;
+  flex-direction: column;
+}
