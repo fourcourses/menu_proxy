@@ -13,9 +13,9 @@ const overview = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-const reservations = axios.create({
-  baseURL: 'http://localhost:3002',
-});
+// const reservations = axios.create({
+//   baseURL: 'http://localhost:3002',
+// });
 
 const menu = axios.create({
   baseURL: 'http://localhost:3003',
@@ -31,6 +31,17 @@ app.use('/api/restaurant/:rid', (req, res) => {
     .catch(err => res.status(400).send(err));
 })
 
+// app.use('/api/restaurant/:id', (req, res) => {
+//   reservations.get(`/api/restaurant/${req.params.id}`)
+//     .then(response => res.json(response.data))
+//     .catch(err => res.status(400).send(err));
+// })
+
+app.use('/api/menu/:id', (req, res) => {
+  menu.get(`/api/menu/${req.params.id}`)
+    .then(response => res.json(response.data))
+    .catch(err => res.status(400).send(err));
+})
 
 app.use('/api/restaurants/:id/reviews', (req, res) => {
   reviews.get(`/api/restaurants/${req.params.id}/reviews`)
