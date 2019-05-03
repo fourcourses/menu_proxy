@@ -1,7 +1,9 @@
 const express = require('express');
-const morgan = require('morgan');
+const nr = require('newrelic');
 const path = require('path');
 const axios = require('axios');
+const redis = require('redis');
+const redisClient = redis.createClient(6379, '172.31.14.169');
 const app = express();
 const port = 80;
 
@@ -36,13 +38,27 @@ const menu = axios.create({
 //     .catch(err => res.status(400).send(err));
 // })
 
-app.use('/api/menu/:id', (req, res) => {
+app.get('/api/menu/:id', getCache);
+
+const getCache = (req, res) => {
+  let id = req.params.id;
+  redisClient.mget(id, (err, result) => {
+    if (result[0] !== null) {
+      res.send(JSON.parse(result[0]));
+    } else {
+      fetchMenuFromDB(req, res);
+    }
+  });
+};
+
+const fetchMenuFromDB = (req, res) => {
   menu.get(`/menu/${req.params.id}`)
     .then(response => {
       res.json(response.data);
     })
+    .then(() => redisClient.setex(parseInt(req.params.id), 3600, JSON.stringify(resultFormatted)))
     .catch(err => res.status(400).send(err));
-});
+};
 
 // app.use('/api/restaurants/:id/reviews', (req, res) => {
 //   reviews.get(`/api/restaurants/${req.params.id}/reviews`)
